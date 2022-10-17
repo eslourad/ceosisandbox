@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandbox/repositories/auth_repository.dart';
 import 'package:sandbox/widgets/submit_button.dart';
 
 import '../../widgets/auth_textfield.dart';
@@ -31,21 +32,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void registerUser() {
-    print('register api called');
     setState(() {
       _isProcessing = true;
     });
 
-    // mock register api call
-    Future.delayed(const Duration(seconds: 5)).then((value) {
-      print(_nameController.text.toString());
-      print(_emailController.text.toString());
-      print(_passwordController.text.toString());
-      print(_confirmpasswordController.text.toString());
+    print(AuthRepository().register());
 
-      setState(() {
-        _isProcessing = false;
-      });
+    setState(() {
+      _isProcessing = false;
     });
   }
 

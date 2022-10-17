@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: LinkButton(
         label: 'Register',
-        otherPage: () => const RegisterScreen(),
+        otherPage: () => const Center(child: RegisterScreen()),
       ),
     );
   }

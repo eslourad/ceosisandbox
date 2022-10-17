@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    String token = "sadsad";
+    String token = "";
 
     return token != ""
         ? Scaffold(
