@@ -1,11 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'package:sandbox/examples/june/models/post_list_model.dart';
 import 'package:sandbox/examples/june/models/post_model.dart';
+import 'package:sandbox/examples/june/repositories/post_repository_interface.dart';
 
 import '../constants/endpoints.dart';
 import '../services/api_service.dart';
 
-class PostRepository {
+class PostRepository implements PostRepositoryInterface {
+  @override
   Future<List<PostListModel>?> getPosts() async {
     try {
       var client = http.Client();
@@ -23,6 +25,7 @@ class PostRepository {
     return null;
   }
 
+  @override
   Future<PostModel?> getPost(String postID) async {
     try {
       var client = http.Client();
