@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
-import 'package:sandbox/examples/carl/Repository/post_repository.dart';
 
 import 'Models/model.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
-
-final myProvider = Provider((ref) {
-  return PostRepository().fetchPosts();
-});
 
 class HomeScreen2 extends ConsumerWidget {
   const HomeScreen2({super.key});
@@ -33,16 +28,19 @@ class HomeScreen2 extends ConsumerWidget {
                   child: ListView.builder(
                       itemCount: post.length,
                       itemBuilder: (_, index) {
-                        return Card(
-                          color: Colors.blue,
-                          elevation: 4,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: ListTile(
-                            title: Text(
-                                'ID${post[index].id.toString()} ${post[index].title}'),
-                            subtitle: Text(post[index].body),
-                            trailing:
-                                Text('userID:${post[index].userId.toString()}'),
+                        return InkWell(
+                          onTap: () {},
+                          child: Card(
+                            color: Colors.blue,
+                            elevation: 4,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            child: ListTile(
+                              title: Text(
+                                  'ID:${post[index].id.toString()} ${post[index].title}'),
+                              subtitle: Text(post[index].body),
+                              trailing: Text(
+                                  'userID:${post[index].userId.toString()}'),
+                            ),
                           ),
                         );
                       }),
