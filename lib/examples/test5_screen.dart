@@ -10,6 +10,8 @@ final thirdNumberProvider = Provider((_) => 3);
 //create basic provider for the repo (postRepositoryProvider)
 //create future provider referencing that basic provider (postFutureProvider)
 //build the result
+// List of Product
+// Get Single Product
 
 class TestScreen4 extends StatelessWidget {
   const TestScreen4({super.key});
