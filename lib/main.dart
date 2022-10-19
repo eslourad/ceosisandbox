@@ -19,9 +19,6 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MainScreen(),
       home: const TestScreen(),
-// =======
-//       home: const TestScreen(),
-// >>>>>>> 5f393a420738c0009e724ceebb651ef91c5d04a2
     );
   }
 }
