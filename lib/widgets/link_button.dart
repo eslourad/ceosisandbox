@@ -4,18 +4,18 @@ class LinkButton extends StatelessWidget {
   const LinkButton({
     Key? key,
     required this.label,
-    required this.otherPage,
+    this.otherPage,
   }) : super(key: key);
 
   final String label;
-  final Widget Function() otherPage;
+  final Widget Function()? otherPage;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => otherPage(),
+          builder: (context) => otherPage!(),
         ));
       },
       child: Text(label),
