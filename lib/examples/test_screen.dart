@@ -24,7 +24,7 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     print("TEST 1 I am being rebuild (EDITED FOR REPO DEMO)");
-    print("TEST 1 I am being rebuild FOR DEMO");
+    print("TEST 1 I am being rebuild FOR DEMO 2");
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
