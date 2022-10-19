@@ -7,35 +7,35 @@ import '../services/api_service.dart';
 
 class PostRepository {
   Future<List<PostListModel>?> getPosts() async {
-    var client = http.Client();
-    var response = await client.get(ApiService.url(endpoint: EndPoint.posts));
-
     try {
+      var client = http.Client();
+      var response = await client.get(ApiService.url(endpoint: EndPoint.posts));
+
       if (response.statusCode == 200) {
         print(response.body);
         return postListModelFromJson(response.body);
       }
     } catch (e) {
       print('An error has occurred!');
-      print(response.body);
+      throw Exception(e);
     }
 
     return null;
   }
 
   Future<PostModel?> getPost(String postID) async {
-    var client = http.Client();
-    var response = await client
-        .get(ApiService.url(endpoint: EndPoint.posts, query: postID));
-
     try {
+      var client = http.Client();
+      var response = await client
+          .get(ApiService.url(endpoint: EndPoint.posts, query: postID));
+
       if (response.statusCode == 200) {
         print(response.body);
         return postModelFromJson(response.body);
       }
     } catch (e) {
       print('An error has occurred!');
-      print(response.body);
+      throw Exception(e);
     }
 
     return null;
