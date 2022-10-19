@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 import '../Models/model.dart';
@@ -15,5 +14,3 @@ class PostRepository {
     return result.map(((e) => Post.fromJson(e))).toList();
   }
 }
-
-final postProvider = Provider<PostRepository>((ref) => PostRepository());
