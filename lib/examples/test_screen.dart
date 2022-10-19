@@ -24,23 +24,22 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     print("TEST 1 I am being rebuild (EDITED FOR REPO DEMO)");
+    print("TEST 1 I am being rebuild FOR DEMO");
     return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(_firstNumber.toString()),
-            Text(_secondNumber.toString()),
-            Text(_thirdNumber.toString()),
-            TextButton(
-              onPressed: () {
-                _changeNumber3();
-              },
-              child: const Text("Change third number"),
-            )
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(_firstNumber.toString()),
+          Text(_secondNumber.toString()),
+          Text(_thirdNumber.toString()),
+          TextButton(
+            onPressed: () {
+              _changeNumber3();
+            },
+            child: const Text("Change third number"),
+          )
+        ],
       ),
     );
   }
