@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/june/models/post_list_model.dart';
 import 'package:sandbox/examples/june/models/post_model.dart';
 import 'package:sandbox/examples/june/providers.dart';
 
 import '../constants/labels.dart';
 
 class SinglePostScreen extends ConsumerWidget {
-  const SinglePostScreen({super.key, required this.model});
-  final PostListModel model;
+  const SinglePostScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(postFutureProvider(model.id.toString()));
+    final data = ref.watch(postFutureProvider(
+        ref.read(postStateProvider.state).state.id.toString()));
     return Scaffold(
       appBar: AppBar(
         title: const Text(Label.singlePostTitle),
@@ -62,7 +61,8 @@ class SinglePostScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 20.0),
                       Text(
-                        data.title,
+                        // data.title,
+                        data.title!,
                         style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
