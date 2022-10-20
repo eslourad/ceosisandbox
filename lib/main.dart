@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'examples/carl/main_screen.dart';
 
+import 'examples/Chloie/screens/photo_list_screen.dart';
+
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MainScreen(),
-      home: const MainScreen2(),
+      home: const PhotoListScreen(),
     );
   }
 }
