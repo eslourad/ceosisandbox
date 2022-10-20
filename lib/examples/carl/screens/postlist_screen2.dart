@@ -7,8 +7,8 @@ import 'package:sandbox/examples/carl/screens/singleproduct_screen.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
 
-class ProductListScreen extends ConsumerWidget {
-  const ProductListScreen({super.key});
+class PostListScreen2 extends ConsumerWidget {
+  const PostListScreen2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,9 +32,13 @@ class ProductListScreen extends ConsumerWidget {
                           .read(userIdPostProvider.notifier)
                           .showallwithUserID(value);
 
+                      print(ref
+                          .read(userIdPostProvider.notifier)
+                          .showallwithUserID(value));
+                      print(watchuserIdpostshow);
                       var userId = value;
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchScreen(userId),
+                        builder: (context) => SearchScreen(watchuserIdpostshow),
                       ));
                     },
                     cursorColor: Colors.grey,
