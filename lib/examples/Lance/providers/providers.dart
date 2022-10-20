@@ -24,12 +24,7 @@ final getPostProvider = // Getting the state of the state notifier
   return ListOfPostNotifier();
 });
 
-final postRepositoryProvider = // Passing the state of the state notifier to the base url of the api
-    Provider.family<Future<List<PostLance>?>, String>((ref, url) {
-  return PostRepository().getPosts(url);
-});
-
 final postFutureProvider = // Getting the data of the api from postRepositoryProvider
     FutureProvider.family.autoDispose<List<PostLance>?, String>((ref, url) {
-  return ref.read(postRepositoryProvider(url));
+  return PostRepository().getPosts(url);
 });
