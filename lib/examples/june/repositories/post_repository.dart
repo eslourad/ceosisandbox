@@ -8,10 +8,11 @@ import '../services/api_service.dart';
 
 class PostRepository implements PostRepositoryInterface {
   @override
-  Future<List<PostListModel>?> getPosts() async {
+  Future<List<PostListModel>?> getPosts({String query = ''}) async {
     try {
       var client = http.Client();
-      var response = await client.get(ApiService.url(endpoint: EndPoint.posts));
+      var response = await client
+          .get(ApiService.url(endpoint: EndPoint.posts, query: query));
 
       if (response.statusCode == 200) {
         print(response.body);
