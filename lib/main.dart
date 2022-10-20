@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'examples/Lance/screens/my_home_page.dart';
+import 'examples/carl/main_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MainScreen(),
-      home: const MyHomePage(),
+      home: const MainScreen2(),
     );
   }
 }

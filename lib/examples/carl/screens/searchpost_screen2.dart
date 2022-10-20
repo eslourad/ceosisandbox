@@ -5,8 +5,8 @@ import '../Models/model.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
 
-class SearchScreen extends ConsumerWidget {
-  SearchScreen(this.userId, {super.key});
+class SearchPostScreen extends ConsumerWidget {
+  SearchPostScreen(this.userId, {super.key});
   String userId;
 
   @override
@@ -32,7 +32,7 @@ class SearchScreen extends ConsumerWidget {
                         return InkWell(
                           onTap: () {},
                           child: Card(
-                            color: Colors.blue,
+                            color: const Color.fromARGB(255, 235, 233, 135),
                             elevation: 4,
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             child: ListTile(

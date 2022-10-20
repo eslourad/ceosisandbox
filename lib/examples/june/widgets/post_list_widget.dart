@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/june/models/post_list_model.dart';
+import 'package:sandbox/examples/june/models/post_model.dart';
+import 'package:sandbox/examples/june/providers.dart';
 import 'package:sandbox/examples/june/screens/single_post_screen.dart';
 
 import '../constants/labels.dart';
 
-class PostListWidget extends StatelessWidget {
+class PostListWidget extends ConsumerWidget {
   const PostListWidget({
     Key? key,
     required this.postList,
@@ -13,7 +16,7 @@ class PostListWidget extends StatelessWidget {
   final List<PostListModel> postList;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: <Widget>[
         Expanded(
@@ -40,11 +43,16 @@ class PostListWidget extends StatelessWidget {
                   ),
                   trailing: Text('${Label.userID} ${postList[index].userId}'),
                   onTap: () {
+                    ref.read(postStateProvider.notifier).state = PostModel(
+                      userId: postList[index].userId,
+                      id: postList[index].id,
+                      title: postList[index].title,
+                      body: postList[index].body,
+                    );
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              SinglePostScreen(model: postList[index]),
+                          builder: (context) => const SinglePostScreen(),
                         ));
                   },
                 ),

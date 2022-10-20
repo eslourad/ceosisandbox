@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Models/model.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
-import 'package:sandbox/examples/carl/screens/search_product.dart';
-import 'package:sandbox/examples/carl/screens/singleproduct_screen.dart';
+import 'package:sandbox/examples/carl/screens/searchpost_screen2.dart';
+import 'package:sandbox/examples/carl/screens/singlepost_screen2.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
 
@@ -38,7 +38,8 @@ class PostListScreen2 extends ConsumerWidget {
                       print(watchuserIdpostshow);
 
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchScreen(watchuserIdpostshow),
+                        builder: (context) =>
+                            SearchPostScreen(watchuserIdpostshow),
                       ));
                     },
                     cursorColor: Colors.grey,
@@ -58,7 +59,7 @@ class PostListScreen2 extends ConsumerWidget {
                       itemCount: post.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          color: Colors.blue,
+                          color: const Color.fromARGB(255, 235, 233, 135),
                           elevation: 4,
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: ListTile(
