@@ -18,6 +18,11 @@ final postFutureProvider =
     return ref.watch(postRepositoryProvider).getPost(postID);
   },
 );
+final postStateProvider = StateProvider<PostModel>(
+  (ref) {
+    return PostModel();
+  },
+);
 final postsFilterProvider =
     StateNotifierProvider.autoDispose<PostListFilterNotifier, String>(
   (ref) {
