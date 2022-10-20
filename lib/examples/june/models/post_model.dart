@@ -4,15 +4,15 @@ PostModel postModelFromJson(String str) => PostModel.fromJson(json.decode(str));
 
 class PostModel {
   PostModel({
-    required this.userId,
-    required this.id,
-    required this.title,
+    this.userId,
+    this.id,
+    this.title,
     this.body,
   });
 
-  int userId;
-  int id;
-  String title;
+  int? userId;
+  int? id;
+  String? title;
   String? body;
 
   factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
