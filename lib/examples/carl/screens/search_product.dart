@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
-
 import '../Models/model.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
@@ -22,12 +21,12 @@ class SearchScreen extends ConsumerWidget {
         ),
         body: watchedsearchpostprovider.when(
           data: ((watchedsearchpostprovider) {
-            Post post = watchedsearchpostprovider;
+            List<Post> post = watchedsearchpostprovider;
             return Column(
               children: [
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 5,
+                      itemCount: post.length,
                       itemBuilder: (_, index) {
                         return InkWell(
                           onTap: () {},
@@ -37,10 +36,10 @@ class SearchScreen extends ConsumerWidget {
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             child: ListTile(
                               title: Text(
-                                  'ID:${post.id.toString()} ${post.title}'),
-                              subtitle: Text(post.body),
-                              trailing:
-                                  Text('userID:${post.userId.toString()}'),
+                                  'ID:${post[index].id.toString()} ${post[index].title}'),
+                              subtitle: Text(post[index].body),
+                              trailing: Text(
+                                  'userID:${post[index].userId.toString()}'),
                             ),
                           ),
                         );

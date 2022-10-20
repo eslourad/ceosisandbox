@@ -26,14 +26,6 @@ class HomeScreen2 extends ConsumerWidget {
             List<Post> post = watchedpostprovider.map((e) => e).toList();
             return Column(
               children: [
-                // MaterialButton(
-                //     color: Colors.black,
-                //     onPressed: () {
-                //       // print(ref
-                //       //     .read(userIdPostProvider.notifier)
-                //       //     .showallwithUserID('1')
-                //       //     .toString());
-                //     }),
                 Flexible(
                   flex: 1,
                   child: TextField(
@@ -42,6 +34,7 @@ class HomeScreen2 extends ConsumerWidget {
                         ref
                             .read(userIdPostProvider.notifier)
                             .showallwithUserID(value);
+
                         var userId = value;
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SearchScreen(userId),
