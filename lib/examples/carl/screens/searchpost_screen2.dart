@@ -12,9 +12,10 @@ class SearchPostScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("TEST 3 I am being rebuild");
-
+    String userId2 = ref.watch(userIdPostNotifierProvider);
     final watchedsearchpostprovider =
-        ref.watch(SearchpostFutureProvider(userId));
+        ref.watch(SearchpostFutureProvider(userId2));
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('simple riverpod fetch api'),
