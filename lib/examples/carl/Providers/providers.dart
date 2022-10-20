@@ -32,7 +32,7 @@ class UserIdPostNotifier extends StateNotifier<String> {
   }
 }
 
-final userIdPostProvider =
+final userIdPostNotifierProvider =
     StateNotifierProvider.autoDispose<UserIdPostNotifier, String>((ref) {
   return UserIdPostNotifier();
 });

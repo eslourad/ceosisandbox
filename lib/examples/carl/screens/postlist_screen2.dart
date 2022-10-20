@@ -7,15 +7,15 @@ import 'package:sandbox/examples/carl/screens/singleproduct_screen.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
 
-class ProductListScreen extends ConsumerWidget {
-  const ProductListScreen({super.key});
+class PostListScreen2 extends ConsumerWidget {
+  const PostListScreen2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("TEST 3 I am being rebuild");
 
     final watchedpostprovider = ref.watch(postFutureProvider);
-    final watchuserIdpostshow = ref.watch(userIdPostProvider);
+    final watchuserIdpostshow = ref.watch(userIdPostNotifierProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -29,12 +29,16 @@ class ProductListScreen extends ConsumerWidget {
                 TextField(
                     onSubmitted: (value) {
                       ref
-                          .read(userIdPostProvider.notifier)
+                          .read(userIdPostNotifierProvider.notifier)
                           .showallwithUserID(value);
 
-                      var userId = value;
+                      print(ref
+                          .read(userIdPostNotifierProvider.notifier)
+                          .showallwithUserID(value));
+                      print(watchuserIdpostshow);
+
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchScreen(userId),
+                        builder: (context) => SearchScreen(watchuserIdpostshow),
                       ));
                     },
                     cursorColor: Colors.grey,

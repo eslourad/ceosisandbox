@@ -58,8 +58,10 @@ class PostListScreen extends ConsumerWidget {
                             ref.read(postsFilterProvider.notifier).filter6()),
                         label: Label.six),
                     FilterItemButton(
-                        onPressed: (() =>
-                            ref.read(postsFilterProvider.notifier).filter7()),
+                        onPressed: () {
+                          ref.read(postsFilterProvider.notifier).filter7();
+                          print(ref.read(postsFilterProvider.notifier));
+                        },
                         label: Label.seven),
                     FilterItemButton(
                         onPressed: (() =>

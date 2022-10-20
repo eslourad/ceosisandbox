@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sandbox/examples/carl/screens/productlist_screenl.dart';
+import 'package:sandbox/examples/carl/screens/postlist_screen2.dart';
 
 class MainScreen2 extends StatefulWidget {
   const MainScreen2({super.key});
@@ -11,6 +11,6 @@ class MainScreen2 extends StatefulWidget {
 class _MainScreen2State extends State<MainScreen2> {
   @override
   Widget build(BuildContext context) {
-    return const ProductListScreen();
+    return const PostListScreen2();
   }
 }
