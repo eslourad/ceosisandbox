@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/june/models/post_list_model.dart';
 import 'package:sandbox/examples/june/providers.dart';
-import 'package:sandbox/examples/june/screens/single_post_screen.dart';
+import 'package:sandbox/examples/june/widgets/buttons.dart';
+import 'package:sandbox/examples/june/widgets/post_list_widget.dart';
 
 import '../constants/labels.dart';
 
@@ -11,7 +12,8 @@ class PostListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(postsFutureProvider);
+    String query = ref.watch(postsFilterProvider);
+    final data = ref.watch(postsFutureProvider(query));
     return Scaffold(
       appBar: AppBar(
         title: const Text(Label.postListTitle),
@@ -22,47 +24,59 @@ class PostListScreen extends ConsumerWidget {
           List<PostListModel> postList = data!.map((e) => e).toList();
           return Column(
             children: <Widget>[
-              Expanded(
-                  child: ListView.builder(
-                itemCount: postList.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: CircleAvatar(
-                          child: Text(postList[index].id.toString()),
-                        ),
-                        title: Text(
-                          postList[index].title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitle: Text(
-                          postList[index].body ?? '',
-                          style: const TextStyle(fontSize: 12.0),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        trailing:
-                            Text('${Label.userID} ${postList[index].userId}'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    SinglePostScreen(model: postList[index]),
-                              ));
-                        },
-                      ),
-                      const Divider(
-                        thickness: 2.0,
-                        indent: 20.0,
-                      ),
-                    ],
-                  );
-                },
-              )),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filterAll()),
+                        label: Label.all),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter1()),
+                        label: Label.one),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter2()),
+                        label: Label.two),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter3()),
+                        label: Label.three),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter4()),
+                        label: Label.four),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter5()),
+                        label: Label.five),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter6()),
+                        label: Label.six),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter7()),
+                        label: Label.seven),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter8()),
+                        label: Label.eight),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter9()),
+                        label: Label.nine),
+                    FilterItemButton(
+                        onPressed: (() =>
+                            ref.read(postsFilterProvider.notifier).filter10()),
+                        label: Label.ten),
+                  ],
+                ),
+              ),
+              Expanded(child: PostListWidget(postList: postList)),
             ],
           );
         },
