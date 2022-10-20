@@ -29,6 +29,8 @@ class TestScreen4 extends StatelessWidget {
           children: [
             Text(firstNumber.toString()),
             Text(secondNumber.toString()),
+             Text(secondNumber.toString()),
+
             const ThirdNumberWidget()
           ],
         ),

@@ -14,7 +14,7 @@ class PhotoDetailsScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               size: 20,
               color: Colors.black,
@@ -23,14 +23,14 @@ class PhotoDetailsScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Center(
               child: CircleAvatar(
                 maxRadius: 120,
                 backgroundImage: NetworkImage(photo.thumbnailUrl),
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(photo.title),
           ],
         ),

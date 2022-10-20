@@ -2,39 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/Lance/providers/providers.dart';
 
-class SingleProductPage extends StatelessWidget {
+class SingleProductPage extends ConsumerWidget {
   const SingleProductPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Single Post'),
-      ),
-      body: Consumer(
-        builder: (context, ref, child) {
-          final singlePostData = ref.read(getSinglePostProvider.state);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final futureProvider = ref.watch(singlePostFutureProvider(
+        ref.read(getSinglePostProvider.state).state.id.toString()));
 
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Title"),
-                  Text(singlePostData.state.title!),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text("Body"),
-                  Text(singlePostData.state.body!),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Single Post'),
+        ),
+        body: futureProvider.when(
+          data: ((data) {
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Title"),
+                Text(data!.title!),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text("Body"),
+                Text(data.body!),
+              ],
+            );
+            return null;
+          }),
+          error: ((error, stackTrace) {
+            print('$error errper');
+            return const Text('Error Retrieving Data');
+          }),
+          loading: (() {
+            return const Center(child: CircularProgressIndicator());
+          }),
+        ));
   }
 }

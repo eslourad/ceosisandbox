@@ -60,10 +60,15 @@ class PhotoWidget extends ConsumerWidget {
                                       thumbnailUrl:
                                           photo[index].thumbnailUrl))))),
                       child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(photo[index].thumbnailUrl),
-                          ),
+                          leading: Uri.parse(photo[index].url).isAbsolute
+                              ? CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(photo[index].url),
+                                )
+                              : Icon(
+                                  Icons.error,
+                                  color: Colors.red,
+                                ),
                           title: Text(photo[index].title)),
                     )
                   ]);
@@ -71,6 +76,6 @@ class PhotoWidget extends ConsumerWidget {
               );
             },
             error: ((error, stackTrace) => Text(error.toString())),
-            loading: (() => Center(child: CircularProgressIndicator()))));
+            loading: (() => const Center(child: CircularProgressIndicator()))));
   }
 }

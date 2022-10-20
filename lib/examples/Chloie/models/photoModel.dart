@@ -28,9 +28,9 @@ class PhotoModel {
   factory PhotoModel.fromJson(Map<String, dynamic> json) => PhotoModel(
       albumId: json["albumId"],
       id: json["id"],
-      title: json["title"] ?? 'title',
-      url: json["url"] ?? 'url',
-      thumbnailUrl: json["thumbnailUrl"] ?? 'thumbnailUrl');
+      title: json["title"],
+      url: json["url"],
+      thumbnailUrl: json["thumbnailUrl"]);
 
   Map<String, dynamic> toJson() => {
         "albumId": albumId,
