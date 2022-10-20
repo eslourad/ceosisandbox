@@ -14,9 +14,9 @@ final singlePhotoDataProvider =
   },
 );
 final filterPhotoDataProvider =
-    FutureProvider.family.autoDispose<PhotoModel, int>(
+    FutureProvider.family.autoDispose<List<PhotoModel>, String>(
   (ref, albumId) async {
-    return ref.read(photoRepositoryProvider).getFilterPhoto(albumId.toString());
+    return ref.watch(photoRepositoryProvider).getFilterPhoto(albumId);
   },
 );
 final filterPhotoProvider =

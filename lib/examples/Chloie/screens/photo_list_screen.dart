@@ -40,69 +40,74 @@ class FilterWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int albumId;
-
-    final photo = ref.watch(photoDataProvider);
-    //  final filterPhoto = ref.watch(filterPhotoDataProvider(albumId));
+    String userId = ref.watch(filterPhotoProvider);
+    final filteredphotos = ref.watch(filterPhotoDataProvider(userId));
     return Expanded(
         child: Column(
       children: [
-        Row(
-          children: [
-            TextButton(
-              onPressed: () {
-                ref.read(filterPhotoProvider.notifier).getAll();
-              },
-              child: const Text("All"),
-            ),
-            TextButton(
-              onPressed: () {
-                ref.read(filterPhotoProvider.notifier).getAlbumId1();
-              },
-              child: const Text("1"),
-            ),
-            TextButton(
-              onPressed: () {
-                ref.read(filterPhotoProvider.notifier).getAlbumId2();
-              },
-              child: const Text("2"),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 350),
+          child: PopupMenuButton(
+              icon: Icon(Icons.more_horiz_rounded, color: Colors.black),
+              itemBuilder: (ctx) => [
+                    PopupMenuItem(
+                      onTap: () {
+                        ref.read(filterPhotoProvider.notifier).getAll();
+                      },
+                      child: Text('All'),
+                    ),
+                    PopupMenuItem(
+                      onTap: () {
+                        ref.read(filterPhotoProvider.notifier).getAlbumId1();
+                      },
+                      child: Text('Album 1'),
+                    ),
+                    PopupMenuItem(
+                      onTap: () {
+                        ref.read(filterPhotoProvider.notifier).getAlbumId2();
+                      },
+                      child: Text('Album 2'),
+                    )
+                  ]),
         ),
         Expanded(
-            child: photo.when(
-                data: (photo) {
-                  return ListView.builder(
-                    itemCount: photo.length,
-                    itemBuilder: (context, index) {
-                      return Column(children: [
-                        InkWell(
-                          onTap: (() =>
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => PhotoDetailsScreen(
-                                        photoModel: photo[index],
-                                      )))),
-                          child: ListTile(
-                              leading: Uri.parse(photo[index].url).isAbsolute
-                                  ? CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(photo[index].url),
-                                    )
-                                  : Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
-                              title: Text(photo[index].id.toString() +
-                                  '. ' +
-                                  photo[index].title)),
-                        )
-                      ]);
-                    },
-                  );
-                },
-                error: ((error, stackTrace) => Text(error.toString())),
-                loading: (() =>
-                    const Center(child: CircularProgressIndicator()))))
+          child: RefreshIndicator(
+              onRefresh: () async => await ref.refresh(photoDataProvider),
+              child: filteredphotos.when(
+                  data: ((filteredphotos) {
+                    List<PhotoModel> photos = filteredphotos;
+                    // final PhotoModel photos;
+                    return ListView.builder(
+                      itemCount: photos.length,
+                      itemBuilder: (context, index) {
+                        return Column(children: [
+                          InkWell(
+                            onTap: (() =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => PhotoDetailsScreen(
+                                          photoModel: photos[index],
+                                        )))),
+                            child: ListTile(
+                                leading: Uri.parse(photos[index].url).isAbsolute
+                                    ? CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(photos[index].url),
+                                      )
+                                    : CircleAvatar(
+                                        backgroundColor: Colors.black,
+                                      ),
+                                title: Text(photos[index].albumId.toString() +
+                                    '. ' +
+                                    photos[index].title)),
+                          )
+                        ]);
+                      },
+                    );
+                  }),
+                  error: ((error, stackTrace) => Text(error.toString())),
+                  loading: (() =>
+                      const Center(child: CircularProgressIndicator())))),
+        ),
       ],
     ));
   }
