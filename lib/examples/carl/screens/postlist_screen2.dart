@@ -59,7 +59,7 @@ class PostListScreen2 extends ConsumerWidget {
                       itemCount: post.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          color: Colors.blue,
+                          color: const Color.fromARGB(255, 235, 233, 135),
                           elevation: 4,
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: ListTile(

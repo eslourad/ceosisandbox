@@ -32,7 +32,7 @@ class SinglePostScreen extends ConsumerWidget {
                         return InkWell(
                           onTap: () {},
                           child: Card(
-                            color: Colors.blue,
+                            color: const Color.fromARGB(255, 235, 233, 135),
                             elevation: 4,
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             child: ListTile(
