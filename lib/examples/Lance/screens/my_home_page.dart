@@ -1,46 +1,119 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/Lance/model/post_model.dart';
 import 'package:sandbox/examples/Lance/providers/providers.dart';
-import 'package:sandbox/examples/Lance/screens/single_product_page.dart';
+
+import '../model/post_model.dart';
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final futureProvider = ref.watch(postFutureProvider);
-    final singlePostProvider = ref.watch(getSinglePostProvider);
+    var futureProvider =
+        ref.watch(postFutureProvider(ref.read(getPostProvider.notifier).state));
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('List of Post'),
-          centerTitle: true,
-        ),
-        body: futureProvider.when(data: ((data) {
-          return ListView(
+      appBar: AppBar(
+        title: Text(ref.read(getPostProvider.notifier).state),
+        centerTitle: true,
+      ),
+      body: Consumer(futureProvider: futureProvider),
+    );
+  }
+}
+
+class Consumer extends ConsumerWidget {
+  const Consumer({
+    Key? key,
+    required this.futureProvider,
+  }) : super(key: key);
+
+  final AsyncValue<List<PostLance>?> futureProvider;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SizedBox(
+      child: futureProvider.when(
+        data: ((data) {
+          return Column(
             children: [
-              for (int i = 0; i < data!.length; i++)
-                ListTile(
-                  onTap: () {
-                    ref.read(getSinglePostProvider.notifier).state = Post(
-                      body: data[i].body,
-                      title: data[i].title,
-                      userId: data[i].userId,
-                      id: data[i].id,
-                    );
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SingleProductPage()));
-                  },
-                  title: Text(data[i].title!),
-                  subtitle: Text(data[i].body!),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MaterialButton(
+                      color: Colors.blue,
+                      onPressed: (() {
+                        ref.read(getPostProvider.notifier).all();
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage(),
+                            ));
+                      }),
+                      child: const Text('All')),
+                  MaterialButton(
+                      color: Colors.blue,
+                      child: const Text('1'),
+                      onPressed: () {
+                        ref.read(getPostProvider.notifier).userId1();
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage(),
+                            ));
+                      }),
+                  MaterialButton(
+                      color: Colors.blue,
+                      child: const Text('2'),
+                      onPressed: () {
+                        ref.read(getPostProvider.notifier).userId2();
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage(),
+                            ));
+                      }),
+                ],
+              ),
+              Expanded(
+                child: SizedBox(
+                  child: ListView.builder(
+                      itemCount: data!.length,
+                      itemBuilder: ((context, index) {
+                        return ListTile(
+                          onTap: () {
+                            ref.read(getSinglePostProvider.notifier).state =
+                                PostLance(
+                              body: data[index].body,
+                              title: data[index].title,
+                              userId: data[index].userId,
+                              id: data[index].id,
+                            );
+                            print(data[index].body);
+                            print(data[index].title);
+                            print(data[index].userId);
+                            print(data[index].id);
+                          },
+                          title: Text(data[index].title!),
+                          subtitle: Text(data[index].body!),
+                        );
+                      })),
                 ),
+              ),
             ],
           );
-        }), error: ((error, stackTrace) {
+        }),
+        error: ((error, stackTrace) {
+          print(error);
           return const Text('Error Retrieving Data');
-        }), loading: (() {
+        }),
+        loading: (() {
           return const Center(child: CircularProgressIndicator());
-        })));
+        }),
+      ),
+    );
   }
 }

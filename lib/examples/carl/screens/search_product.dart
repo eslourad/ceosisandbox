@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
-
-import 'Models/model.dart';
+import '../Models/model.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
 
-class HomeScreen2 extends ConsumerWidget {
-  const HomeScreen2({super.key});
+class SearchScreen extends ConsumerWidget {
+  SearchScreen(this.userId, {super.key});
+  String userId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("TEST 3 I am being rebuild");
 
-    final watchedpostprovider = ref.watch(postFutureProvider);
-
+    final watchedsearchpostprovider =
+        ref.watch(SearchpostFutureProvider(userId));
     return Scaffold(
         appBar: AppBar(
           title: const Text('simple riverpod fetch api'),
         ),
-        body: watchedpostprovider.when(
-          data: ((watchedpostprovider) {
-            List<Post> post = watchedpostprovider.map((e) => e).toList();
+        body: watchedsearchpostprovider.when(
+          data: ((watchedsearchpostprovider) {
+            List<Post> post = watchedsearchpostprovider;
             return Column(
               children: [
                 Expanded(
