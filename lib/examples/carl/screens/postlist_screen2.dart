@@ -15,7 +15,7 @@ class PostListScreen2 extends ConsumerWidget {
     print("TEST 3 I am being rebuild");
 
     final watchedpostprovider = ref.watch(postFutureProvider);
-    final watchuserIdpostshow = ref.watch(userIdPostProvider);
+    final watchuserIdpostshow = ref.watch(userIdPostNotifierProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -29,14 +29,14 @@ class PostListScreen2 extends ConsumerWidget {
                 TextField(
                     onSubmitted: (value) {
                       ref
-                          .read(userIdPostProvider.notifier)
+                          .read(userIdPostNotifierProvider.notifier)
                           .showallwithUserID(value);
 
                       print(ref
-                          .read(userIdPostProvider.notifier)
+                          .read(userIdPostNotifierProvider.notifier)
                           .showallwithUserID(value));
                       print(watchuserIdpostshow);
-                      var userId = value;
+
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchScreen(watchuserIdpostshow),
                       ));
