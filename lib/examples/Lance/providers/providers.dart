@@ -5,7 +5,7 @@ import '../model/post_model.dart';
 import '../model/single_post_model.dart';
 import 'notifiers/post_list_notifier.dart';
 
-// Getting the data in a single post
+// Getting the data in a single postas
 final singlePostRepositoryProvider = Provider.family<SinglePostModel?, String>(
     (ref, id) => PostRepository().getSingleProduct(id));
 
