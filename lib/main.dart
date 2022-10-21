@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sandbox/examples/june/screens/post_list_screen.dart';
 
 import 'examples/carl/main_screen.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MainScreen(),
-      home: const MainScreen2(),
+      home: const PostListScreen(),
     );
   }
 }
