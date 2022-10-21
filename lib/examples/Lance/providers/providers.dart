@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/Lance/providers/notifiers/post_list_notifier.dart';
+import 'package:sandbox/examples/Lance/notifiers/post_list_notifier.dart';
 import 'package:sandbox/examples/Lance/repositories/post_repositories.dart';
 
 import '../model/post_model.dart';

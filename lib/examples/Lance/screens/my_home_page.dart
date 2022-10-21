@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/Lance/providers/providers.dart';
 
 import '../model/post_model.dart';
-import '../providers/notifiers/post_list_notifier.dart';
+import '../notifiers/post_list_notifier.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
