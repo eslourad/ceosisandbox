@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/Lance/providers/providers.dart';
 
 import '../model/post_model.dart';
+import '../providers/notifiers/post_list_notifier.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -32,7 +33,11 @@ class Consumer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var futureProvider = ref
-        .watch(postFutureProvider1(ref.watch(filterProvider.notifier).state));
+        .watch(postsFutureProvider(ref.watch(filterProvider.notifier).state));
+
+    print(ref.watch(filterProvider.notifier).state);
+
+    print('tawag');
 
     final filterController = TextEditingController();
     return SizedBox(
@@ -42,7 +47,7 @@ class Consumer extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: TextField(
+                child: TextFormField(
                   keyboardType: TextInputType.number,
                   controller: filterController,
                   inputFormatters: <TextInputFormatter>[
@@ -66,59 +71,6 @@ class Consumer extends ConsumerWidget {
                       label: const Text('Search Filter')),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 10, right: 10),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       MaterialButton(
-              //           color: Colors.blue,
-              //           onPressed: (() {
-              //             ref.read(getPostProvider.notifier).all();
-
-              //             Navigator.pushReplacement(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                   builder: (context) => const MyHomePage(),
-              //                 ));
-              //           }),
-              //           child: const Text(
-              //             'All',
-              //             style: TextStyle(color: Colors.white),
-              //           )),
-              //       MaterialButton(
-              //           color: Colors.blue,
-              //           child: const Text(
-              //             '1',
-              //             style: TextStyle(color: Colors.white),
-              //           ),
-              //           onPressed: () {
-              //             ref.read(getPostProvider.notifier).userId1();
-
-              //             Navigator.pushReplacement(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                   builder: (context) => const MyHomePage(),
-              //                 ));
-              //           }),
-              //       MaterialButton(
-              //           color: Colors.blue,
-              //           child: const Text(
-              //             '2',
-              //             style: TextStyle(color: Colors.white),
-              //           ),
-              //           onPressed: () {
-              //             ref.read(getPostProvider.notifier).userId2();
-
-              //             Navigator.pushReplacement(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                   builder: (context) => const MyHomePage(),
-              //                 ));
-              //           }),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(
                 height: 10,
               ),

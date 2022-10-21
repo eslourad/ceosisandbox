@@ -2,14 +2,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/Lance/model/post_model.dart';
 import 'package:sandbox/examples/Lance/repositories/post_repositories.dart';
 
-class PostsNotifier extends StateNotifier<AsyncValue<List<PostLance>>> {
-  PostsNotifier() : super(const AsyncValue.data(<PostLance>[]));
+class PostsNotifier extends StateNotifier<Future<List<PostLance>>> {
+  PostsNotifier() : super(Future<List<PostLance>>.value());
 
   getData(url) {
-    try {
-      state = PostRepository().getPosts(url) as AsyncValue<List<PostLance>>;
-    } catch (e) {
-      print('bogo error');
-    }
+    state = PostRepository().getPosts(url);
   }
 }
+
+final postFutureProvider = // Getting the data of the api from postRepositoryProvider
+    FutureProvider.family<List<PostLance>, String>((ref, url) {
+  return ref
+      .read(sortedListPostProvider.notifier)
+      .getData(ref.watch(filterProvider.notifier).state);
+});
+
+final filterProvider = StateProvider<String>((ref) {
+  return 'posts';
+});
+
+final sortedListPostProvider =
+    StateNotifierProvider<PostsNotifier, Future<List<PostLance>>>((ref) {
+  return PostsNotifier();
+});
