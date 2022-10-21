@@ -15,7 +15,6 @@ class PostRepository implements PostRepositoryInterface {
           .get(ApiService.url(endpoint: EndPoint.posts, query: query));
 
       if (response.statusCode == 200) {
-        print(response.body);
         return postListModelFromJson(response.body);
       }
     } catch (e) {
@@ -34,7 +33,6 @@ class PostRepository implements PostRepositoryInterface {
           .get(ApiService.url(endpoint: EndPoint.posts, query: postID));
 
       if (response.statusCode == 200) {
-        print(response.body);
         return postModelFromJson(response.body);
       }
     } catch (e) {
