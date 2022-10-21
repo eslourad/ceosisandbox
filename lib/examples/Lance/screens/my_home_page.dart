@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/Lance/providers/providers.dart';
+import 'package:sandbox/examples/Lance/providers/get_single_product_provider.dart';
 
 import '../model/post_model.dart';
-import '../notifiers/post_list_notifier.dart';
+import '../providers/get_posts_list_notifiers.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
