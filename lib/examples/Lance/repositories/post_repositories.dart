@@ -7,7 +7,7 @@ import '../model/single_post_model.dart';
 
 class PostRepository implements PostRepositoryInterface {
   @override
-  Future<List<PostLance>?> getPosts(String url) async {
+  Future<List<PostLance>> getPosts(String url) async {
     var client = http.Client();
     var uri = Uri.parse(ApiConfigurationLance().baseUrl + url);
     var response = await client.get(uri);
@@ -16,7 +16,7 @@ class PostRepository implements PostRepositoryInterface {
       var json = response.body;
       return postFromJson(json);
     }
-    return null;
+    return postFromJson(response.body);
   }
 
   @override

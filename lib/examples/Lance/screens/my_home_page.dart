@@ -31,8 +31,8 @@ class Consumer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var futureProvider =
-        ref.watch(postFutureProvider(ref.watch(filterProvider.notifier).state));
+    var futureProvider = ref
+        .watch(postFutureProvider1(ref.watch(filterProvider.notifier).state));
 
     final filterController = TextEditingController();
     return SizedBox(
@@ -51,15 +51,10 @@ class Consumer extends ConsumerWidget {
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                           onPressed: () {
-                            print(
-                                'state ${ref.watch(filterProvider.notifier).state}');
                             ref.read(filterProvider.notifier).state =
                                 filterController.text == ''
                                     ? 'posts'
                                     : 'posts?userId=${filterController.text}';
-
-                            print(
-                                'state2 ${ref.watch(filterProvider.notifier).state}');
 
                             Navigator.pushReplacement(
                                 context,
@@ -149,7 +144,7 @@ class Consumer extends ConsumerWidget {
                           ),
                         );
                       }),
-                      itemCount: data!.length,
+                      itemCount: data.length,
                       itemBuilder: ((context, index) {
                         return ListTile(
                           onTap: () {
