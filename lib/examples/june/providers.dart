@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/june/models/post_list_model.dart';
 import 'package:sandbox/examples/june/models/post_model.dart';
-import 'package:sandbox/examples/june/notifiers/post_list_filter_notifier.dart';
+import 'package:sandbox/examples/june/notifiers/post_list_notifier.dart';
 import 'package:sandbox/examples/june/repositories/post_repository.dart';
 
 final postRepositoryProvider =
@@ -18,7 +18,7 @@ final postFutureProvider =
     return ref.watch(postRepositoryProvider).getPost(postID);
   },
 );
-final postStateProvider = StateProvider.autoDispose<PostModel>(
+final postStateProvider = StateProvider<PostModel>(
   (ref) {
     return PostModel();
   },
