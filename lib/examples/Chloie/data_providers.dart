@@ -16,10 +16,16 @@ final singlePhotoDataProvider =
 final filterPhotoDataProvider =
     FutureProvider.family.autoDispose<List<PhotoModel>, String>(
   (ref, albumId) async {
-    return ref.watch(photoRepositoryProvider).getFilterPhoto(albumId);
+    return ref
+        .watch(photoRepositoryProvider)
+        .getFilterPhoto(albumId.toString());
   },
 );
+// final filterPhotoProvider = StateNotifierProvider.autoDispose<PhotosNotifier,
+//     AsyncValue<List<PhotoModel>>>((ref) {
+//   return PhotosNotifier();
+// });
 final filterPhotoProvider =
-    StateNotifierProvider<PhotosNotifier, String>((ref) {
-  return PhotosNotifier();
+    StateNotifierProvider<PhotosFilterNotifier, String>((ref) {
+  return PhotosFilterNotifier();
 });

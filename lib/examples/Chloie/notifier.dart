@@ -1,17 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sandbox/examples/Chloie/models/photoModel.dart';
 
-class PhotosNotifier extends StateNotifier<String> {
-  PhotosNotifier() : super('');
+class PhotosFilterNotifier extends StateNotifier<String> {
+  PhotosFilterNotifier() : super('');
 
-  void getAll() {
-    state = '';
+  void photofilter(String userid) {
+    state = userid;
   }
+}
 
-  void getAlbumId1() {
-    state = '1';
-  }
+class PhotosListNotifier extends StateNotifier<AsyncValue<List<PhotoModel>>> {
+  PhotosListNotifier() : super(const AsyncValue.data(<PhotoModel>[]));
 
-  void getAlbumId2() {
-    state = '2';
+  getListPhotos(String photoList) {
+    state = photoList as AsyncValue<List<PhotoModel>>;
   }
 }
