@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Models/model.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
@@ -16,7 +17,8 @@ class PostListScreen2 extends ConsumerWidget {
 
     final watchedpostprovider = ref.watch(postFutureProvider);
     final watchuserIdpostshow = ref.watch(userIdPostNotifierProvider);
-
+    // AsyncValue<List<Post>> watchuserIdlistpost =
+    //     ref.watch(userIdListPostNotifierProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text('simple riverpod fetch api'),
@@ -27,15 +29,21 @@ class PostListScreen2 extends ConsumerWidget {
             return Column(
               children: [
                 TextField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                    ],
                     onSubmitted: (value) {
                       ref
                           .read(userIdPostNotifierProvider.notifier)
                           .showallwithUserID(value);
-
-                      print(ref
-                          .read(userIdPostNotifierProvider.notifier)
-                          .showallwithUserID(value));
-                      print(watchuserIdpostshow);
+                      // ref
+                      //     .read(userIdListPostNotifierProvider.notifier)
+                      //     .fetchListwithUser(watchuserIdlistpost);
+                      // print(ref
+                      //     .read(userIdPostNotifierProvider.notifier)
+                      //     .showallwithUserID(value));
+                      // print(watchuserIdpostshow);
 
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
