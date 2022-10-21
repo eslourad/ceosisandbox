@@ -16,13 +16,19 @@ class SearchPostScreen extends ConsumerWidget {
     final watchedsearchpostprovider =
         ref.watch(SearchpostFutureProvider(userId2));
 
+    AsyncValue<List<Post>> watchuserIdlistpost =
+        ref.watch(userIdListPostNotifierProvider);
+
+    ref.read(userIdListPostNotifierProvider.notifier).fetchListwithUser(
+        watchedsearchpostprovider); //READ THE SEARCHPOST WITH USERID  TO FETCH THE LIST
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('simple riverpod fetch api'),
         ),
-        body: watchedsearchpostprovider.when(
-          data: ((watchedsearchpostprovider) {
-            List<Post> post = watchedsearchpostprovider;
+        body: watchuserIdlistpost.when(
+          data: ((watchuserIdlistpost) {
+            List<Post> post = watchuserIdlistpost.map((e) => e).toList();
             return Column(
               children: [
                 Expanded(

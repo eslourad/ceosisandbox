@@ -36,3 +36,20 @@ final userIdPostNotifierProvider =
     StateNotifierProvider.autoDispose<UserIdPostNotifier, String>((ref) {
   return UserIdPostNotifier();
 });
+
+//LISTFETCHER
+
+class ListofUserIdPostNotifier extends StateNotifier<AsyncValue<List<Post>>> {
+  ListofUserIdPostNotifier() : super(const AsyncValue.data(<Post>[]));
+
+  fetchListwithUser(AsyncValue<List<Post>> ListofUserId) {
+    Future.delayed(const Duration(seconds: 0)).then((value) {
+      state = ListofUserId;
+    });
+  }
+}
+
+final userIdListPostNotifierProvider = StateNotifierProvider.autoDispose<
+    ListofUserIdPostNotifier, AsyncValue<List<Post>>>((ref) {
+  return ListofUserIdPostNotifier();
+});
