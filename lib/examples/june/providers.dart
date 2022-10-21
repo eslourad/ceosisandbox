@@ -18,7 +18,7 @@ final postFutureProvider =
     return ref.watch(postRepositoryProvider).getPost(postID);
   },
 );
-final postStateProvider = StateProvider<PostModel>(
+final postStateProvider = StateProvider.autoDispose<PostModel>(
   (ref) {
     return PostModel();
   },
