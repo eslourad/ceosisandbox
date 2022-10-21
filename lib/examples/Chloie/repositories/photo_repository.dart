@@ -29,14 +29,14 @@ class PhotoRepository implements PhotoRepositoryInterface {
   }
 
   @override
-  Future<PhotoModel> getFilterPhoto(String id) async {
+  Future<List<PhotoModel>> getFilterPhoto(String id) async {
     var response = await http.get(
         Uri.parse("https://jsonplaceholder.typicode.com/photos?albumId=$id"));
     if (response.statusCode == 200) {
       print(response.body);
-      return PhotoModel.fromJson(jsonDecode(response.body));
+      return photoFromJson(response.body);
     } else {
-      throw UnimplementedError();
+      throw Exception('Unable to Get Photos');
     }
   }
 }

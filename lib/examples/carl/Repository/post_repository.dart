@@ -15,8 +15,9 @@ class PostRepository {
   }
 
   Future<List<Post>> searchPosts(String userId) async {
-    Uri url =
-        Uri.parse("https://jsonplaceholder.typicode.com/posts?userId=$userId");
+    String query = userId.trim().isEmpty ? '' : '?userId=$userId'; //VERYNICE
+
+    Uri url = Uri.parse("https://jsonplaceholder.typicode.com/posts$query");
     final response = await http.get(url);
     print(response.statusCode);
 
