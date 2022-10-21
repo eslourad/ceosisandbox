@@ -1,17 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sandbox/examples/Lance/model/post_model.dart';
+import 'package:sandbox/examples/Lance/repositories/post_repositories.dart';
 
-class ListOfPostNotifier extends StateNotifier<String> {
-  ListOfPostNotifier() : super('posts');
+class PostsNotifier extends StateNotifier<AsyncValue<List<PostLance>>> {
+  PostsNotifier() : super(const AsyncValue.data(<PostLance>[]));
 
-  void userId1() {
-    state = 'posts?userId=1';
-  }
-
-  void userId2() {
-    state = 'posts?userId=2';
-  }
-
-  void all() {
-    state = 'posts';
+  getData(url) {
+    try {
+      state = PostRepository().getPosts(url) as AsyncValue<List<PostLance>>;
+    } catch (e) {
+      print('bogo error');
+    }
   }
 }
