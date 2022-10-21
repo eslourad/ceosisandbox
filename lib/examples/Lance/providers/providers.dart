@@ -3,7 +3,6 @@ import 'package:sandbox/examples/Lance/repositories/post_repositories.dart';
 
 import '../model/post_model.dart';
 import '../model/single_post_model.dart';
-import 'notifiers/post_list_notifier.dart';
 
 // Getting the data in a single postas
 final singlePostRepositoryProvider = Provider.family<SinglePostModel?, String>(
@@ -19,12 +18,17 @@ final getSinglePostProvider = StateProvider<PostLance>((ref) {
 });
 
 // Getting posts data in different UID
-final getPostProvider = // Getting the state of the state notifier
-    StateNotifierProvider<ListOfPostNotifier, String>((ref) {
-  return ListOfPostNotifier();
-});
+// final getPostProvider = // Getting the state of the state notifier
+//     StateNotifierProvider<ListOfPostNotifier, String>((ref) {
+//   return ListOfPostNotifier();
+// });
 
 final postFutureProvider = // Getting the data of the api from postRepositoryProvider
-    FutureProvider.family.autoDispose<List<PostLance>?, String>((ref, url) {
-  return PostRepository().getPosts(url);
+    FutureProvider.family<List<PostLance>?, String>((ref, url) {
+  print('state1 ${ref.watch(filterProvider.notifier).state}');
+  return PostRepository().getPosts(ref.watch(filterProvider.notifier).state);
+});
+
+final filterProvider = StateProvider<String>((ref) {
+  return 'posts';
 });
