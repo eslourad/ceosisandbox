@@ -18,9 +18,9 @@ class SearchPostScreen extends ConsumerWidget {
 
     AsyncValue<List<Post>> watchuserIdlistpost =
         ref.watch(userIdListPostNotifierProvider);
-    ref
-        .read(userIdListPostNotifierProvider.notifier)
-        .fetchListwithUser(watchedsearchpostprovider);
+
+    ref.read(userIdListPostNotifierProvider.notifier).fetchListwithUser(
+        watchedsearchpostprovider); //READ THE SEARCHPOST WITH USERID  TO FETCH THE LIST
 
     return Scaffold(
         appBar: AppBar(

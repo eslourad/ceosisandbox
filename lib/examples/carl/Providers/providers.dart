@@ -43,7 +43,7 @@ class ListofUserIdPostNotifier extends StateNotifier<AsyncValue<List<Post>>> {
   ListofUserIdPostNotifier() : super(const AsyncValue.data(<Post>[]));
 
   fetchListwithUser(AsyncValue<List<Post>> ListofUserId) {
-    Future.delayed(const Duration(seconds: 1)).then((value) {
+    Future.delayed(const Duration(seconds: 0)).then((value) {
       state = ListofUserId;
     });
   }
