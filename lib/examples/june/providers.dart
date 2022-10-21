@@ -29,3 +29,9 @@ final postsFilterProvider =
     return PostListFilterNotifier();
   },
 );
+final filteredPostsProvider = StateNotifierProvider.autoDispose<
+    FilteredPostsNotifier, AsyncValue<List<PostListModel>?>>(
+  (ref) {
+    return FilteredPostsNotifier();
+  },
+);
