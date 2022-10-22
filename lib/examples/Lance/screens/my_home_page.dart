@@ -132,8 +132,16 @@ class Consumer extends ConsumerWidget {
           );
         }),
         error: ((error, stackTrace) {
-          print(error);
-          return const Text('Error Retrieving Data');
+          print('$error error 1');
+          return const Center(
+            child: Text(
+              'Something went wrong!',
+              style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal),
+            ),
+          );
         }),
         loading: (() {
           return const Center(child: CircularProgressIndicator());
