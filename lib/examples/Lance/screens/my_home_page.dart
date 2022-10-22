@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/Lance/providers/get_single_product_provider.dart';
 
 import '../model/post_model.dart';
-import '../providers/get_posts_list_notifiers.dart';
+import '../providers/notifiers.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -36,8 +36,6 @@ class Consumer extends ConsumerWidget {
         .watch(postsFutureProvider(ref.watch(filterProvider.notifier).state));
 
     print(ref.watch(filterProvider.notifier).state);
-
-    print('tawag');
 
     final filterController = TextEditingController();
     return SizedBox(
