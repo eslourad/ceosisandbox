@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/Lance/providers/providers.dart';
+import 'package:sandbox/examples/Lance/providers/get_single_product_provider.dart';
 
 class SingleProductPage extends ConsumerWidget {
   const SingleProductPage({super.key});
@@ -32,7 +32,6 @@ class SingleProductPage extends ConsumerWidget {
             return null;
           }),
           error: ((error, stackTrace) {
-            print('$error errper');
             return const Text('Error Retrieving Data');
           }),
           loading: (() {

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/Lance/providers/notifiers/post_list_notifier.dart';
+import 'package:sandbox/examples/Lance/providers/notifiers.dart';
 import 'package:sandbox/examples/Lance/repositories/post_repositories.dart';
 
 import '../model/post_model.dart';
@@ -14,6 +14,10 @@ final singlePostFutureProvider =
   return ref.read(singlePostRepositoryProvider(id));
 });
 
+final postsFutureProvider = // Getting the data of the api from postRepositoryProvider
+    FutureProvider.family<List<PostLance>, String>((ref, url) {
+  return PostRepository().getPosts(ref.watch(filterProvider.notifier).state);
+});
 final getSinglePostProvider = StateProvider<PostLance>((ref) {
   return PostLance();
 });
@@ -24,16 +28,4 @@ final getSinglePostProvider = StateProvider<PostLance>((ref) {
 //   return ListOfPostNotifier();
 // });
 
-final postFutureProvider1 = // Getting the data of the api from postRepositoryProvider
-    FutureProvider.family<List<PostLance>, String>((ref, url) {
-  return ref.read(sortedListPostProvider.notifier).getData(url);
-});
 
-final filterProvider = StateProvider<String>((ref) {
-  return 'posts';
-});
-
-final sortedListPostProvider = StateNotifierProvider.autoDispose<PostsNotifier,
-    AsyncValue<List<PostLance>>>((ref) {
-  return PostsNotifier();
-});
