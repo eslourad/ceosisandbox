@@ -11,6 +11,6 @@ class MainScreen2 extends StatefulWidget {
 class _MainScreen2State extends State<MainScreen2> {
   @override
   Widget build(BuildContext context) {
-    return const PostListScreen2();
+    return PostListScreen2();
   }
 }

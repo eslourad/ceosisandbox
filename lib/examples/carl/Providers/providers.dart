@@ -17,7 +17,6 @@ final SinglepostFutureProvider =
 });
 
 ///searchpostlist from statenotififer
-
 final SearchpostFutureProvider =
     FutureProvider.autoDispose.family<List<Post>, String>((ref, userId) async {
   return ref.watch(postProvider).searchPosts(userId);

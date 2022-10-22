@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Models/model.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
-import 'package:sandbox/examples/carl/screens/searchpost_screen2.dart';
+import 'package:sandbox/examples/carl/screens/search_screen2.dart';
 import 'package:sandbox/examples/carl/screens/singlepost_screen2.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
