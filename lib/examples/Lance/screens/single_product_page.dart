@@ -32,7 +32,6 @@ class SingleProductPage extends ConsumerWidget {
             return null;
           }),
           error: ((error, stackTrace) {
-            print('$error errper');
             return const Text('Error Retrieving Data');
           }),
           loading: (() {
