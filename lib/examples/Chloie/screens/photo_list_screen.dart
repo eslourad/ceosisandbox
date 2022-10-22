@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/Chloie/models/photoModel.dart';
-import 'package:sandbox/examples/Chloie/notifier.dart';
 import 'package:sandbox/examples/Chloie/screens/photo_details_screen.dart';
 import '../data_providers.dart';
-import '../repositories/photo_repository.dart';
-
-final photoRepositoryProvider = StateProvider((_) => PhotoRepository());
+import '../models/photoModel.dart';
 
 class PhotoListScreen extends StatelessWidget {
   const PhotoListScreen({super.key});
@@ -43,9 +39,8 @@ class FilterWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textfieldController = TextEditingController();
-    final photo = ref.watch(photoDataProvider);
-    String photoId = ref.watch(filterPhotoProvider);
-    final filteredphotos = ref.watch(filterPhotoDataProvider(photoId));
+    final String id;
+    final photos = ref.watch(listPhotoProvider);
     return Expanded(
         child: Column(children: [
       Padding(
@@ -56,54 +51,38 @@ class FilterWidget extends ConsumerWidget {
             labelText: 'Search',
           ),
           onSubmitted: (value) {
-            if (textfieldController.text.isEmpty) {
-              ref.refresh(photoDataProvider);
-            } else {
-              ref.read(filterPhotoProvider.notifier).photofilter(value);
-            }
+            // ref.watch(listPhotoProvider.notifier).photofilter(id);
           },
         ),
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       Expanded(
-        child: RefreshIndicator(
-            onRefresh: () async => await ref.refresh(photoDataProvider),
-            child: photo.when(
-                data: ((filteredphotos) {
-                  List<PhotoModel> photos = filteredphotos;
-                  // final PhotoModel photos;
-                  return ListView.builder(
-                    itemCount: photos.length,
-                    itemBuilder: (context, index) {
-                      return Column(children: [
-                        InkWell(
-                          onTap: (() =>
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => PhotoDetailsScreen(
-                                        photoModel: photos[index],
-                                      )))),
-                          child: ListTile(
-                            leading: Uri.parse(photos[index].url).isAbsolute
-                                ? CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(photos[index].url),
-                                  )
-                                : CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                  ),
-                            title: Text(photos[index].id.toString() +
-                                '. ' +
-                                photos[index].title),
-                            subtitle: Text("AlbumId: ${photos[index].albumId}"),
-                          ),
-                        )
-                      ]);
-                    },
-                  );
-                }),
-                error: ((error, stackTrace) => Text(error.toString())),
-                loading: (() =>
-                    const Center(child: CircularProgressIndicator())))),
+        child: photos.when(
+            data: ((data) {
+              return ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return Column(children: [
+                    InkWell(
+                      onTap: (() =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PhotoDetailsScreen(
+                                    photoModel: data[index],
+                                  )))),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(data[index].url),
+                        ),
+                        title: Text('${data[index].id}. ${data[index].title}'),
+                        subtitle: Text("AlbumId: ${data[index].albumId}"),
+                      ),
+                    )
+                  ]);
+                },
+              );
+            }),
+            error: ((error, stackTrace) => Text(error.toString())),
+            loading: (() => const Center(child: CircularProgressIndicator()))),
       )
     ]));
   }

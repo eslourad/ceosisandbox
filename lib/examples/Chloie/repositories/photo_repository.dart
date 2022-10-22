@@ -6,7 +6,7 @@ import 'photo_repository_interface.dart';
 
 class PhotoRepository implements PhotoRepositoryInterface {
   @override
-  Future<List<PhotoModel>> getAllPhotos() async {
+  Future<List<PhotoModel>> getAllPhotos(String id) async {
     var response = await http
         .get(Uri.parse("https://jsonplaceholder.typicode.com/photos"));
     if (response.statusCode == 200) {
@@ -28,15 +28,15 @@ class PhotoRepository implements PhotoRepositoryInterface {
     }
   }
 
-  @override
-  Future<List<PhotoModel>> getFilterPhoto(String id) async {
-    var response = await http.get(
-        Uri.parse("https://jsonplaceholder.typicode.com/photos?albumId=$id"));
-    if (response.statusCode == 200) {
-      print(response.body);
-      return photoFromJson(response.body);
-    } else {
-      throw Exception('Unable to Get Photos');
-    }
-  }
+  // @override
+  // Future<List<PhotoModel>> getFilterPhoto(String id) async {
+  //   var response = await http.get(
+  //       Uri.parse("https://jsonplaceholder.typicode.com/photos?albumId=$id"));
+  //   if (response.statusCode == 200) {
+  //     print(response.body);
+  //     return photoFromJson(response.body);
+  //   } else {
+  //     throw Exception('Unable to Get Photos');
+  //   }
+  // }
 }
