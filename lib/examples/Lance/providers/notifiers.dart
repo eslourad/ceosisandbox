@@ -10,6 +10,11 @@ class PostsNotifier extends StateNotifier<Future<List<PostLance>>> {
   }
 }
 
+final sortedListPostProvider =
+    StateNotifierProvider<PostsNotifier, Future<List<PostLance>>>((ref) {
+  return PostsNotifier();
+});
+
 final postFutureProvider = // Getting the data of the api from postRepositoryProvider
     FutureProvider.family<List<PostLance>, String>((ref, url) {
   return ref
@@ -19,9 +24,4 @@ final postFutureProvider = // Getting the data of the api from postRepositoryPro
 
 final filterProvider = StateProvider<String>((ref) {
   return 'posts';
-});
-
-final sortedListPostProvider =
-    StateNotifierProvider<PostsNotifier, Future<List<PostLance>>>((ref) {
-  return PostsNotifier();
 });
