@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
+import 'package:sandbox/examples/carl/screens/singlepost_screen2.dart';
 import '../Models/model.dart';
 
-final thirdNumberProvider = StateProvider((_) => 3);
-
-class SearchPostScreen extends ConsumerWidget {
-  SearchPostScreen(this.userId, {super.key});
+class PostListScreen2 extends ConsumerWidget {
+  PostListScreen2(this.userId, {super.key});
   String userId;
 
   @override
@@ -20,7 +20,7 @@ class SearchPostScreen extends ConsumerWidget {
         userIdListPostNotifierProvider(userId)); //the latest list searched
 
     ref.read(userIdListPostNotifierProvider(userId).notifier).fetchListwithUser(
-        watchedsearchpostprovider); //READ THE SEARCHPOST WITH USERID  TO FETCH THE LIST
+        watchedsearchpostprovider); //READ THE SEARCHEDPOST WITH USERID  TO FETCH THE LIST
 
     return Scaffold(
         appBar: AppBar(
@@ -31,12 +31,41 @@ class SearchPostScreen extends ConsumerWidget {
             List<Post> post = watchuserIdlistpost.map((e) => e).toList();
             return Column(
               children: [
+                TextField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                    ],
+                    onSubmitted: (value) {
+                      userId = value;
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PostListScreen2(userId),
+                      ));
+                    },
+                    cursorColor: Colors.grey,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none),
+                      hintText: 'Search',
+                      hintStyle:
+                          const TextStyle(color: Colors.grey, fontSize: 18),
+                      prefixIcon: const Icon(Icons.search),
+                    )),
                 Expanded(
                   child: ListView.builder(
                       itemCount: post.length,
                       itemBuilder: (_, index) {
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            var id = post[index].id.toString();
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SinglePostScreen(id),
+                            ));
+                          },
                           child: Card(
                             color: const Color.fromARGB(255, 235, 233, 135),
                             elevation: 4,
