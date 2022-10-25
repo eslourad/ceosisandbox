@@ -13,12 +13,10 @@ class PostListScreen2 extends ConsumerWidget {
   String userId = '';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // print("TEST 3 I am being rebuild");
+    print("TEST 3 I am being rebuild");
 
     final watchedpostprovider = ref.watch(postFutureProvider);
-    // final watchuserIdpostshow = ref.watch(userIdPostNotifierProvider);
-    // AsyncValue<List<Post>> watchuserIdlistpost =
-    //     ref.watch(userIdListPostNotifierProvider);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('simple riverpod fetch api'),
@@ -35,13 +33,6 @@ class PostListScreen2 extends ConsumerWidget {
                     ],
                     onSubmitted: (value) {
                       userId = value;
-                      // ref
-                      //     .read(userIdListPostNotifierProvider.notifier)
-                      //     .fetchListwithUser(watchuserIdlistpost);
-                      // print(ref
-                      //     .read(userIdPostNotifierProvider.notifier)
-                      //     .showallwithUserID(value));
-                      // print(watchuserIdpostshow);
 
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchPostScreen(userId),
