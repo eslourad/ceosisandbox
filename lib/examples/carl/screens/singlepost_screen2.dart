@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/carl/Models/model.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
 
-final thirdNumberProvider = StateProvider((_) => 3);
-
 class SinglePostScreen extends ConsumerWidget {
   SinglePostScreen(this.id, {super.key});
   String id;

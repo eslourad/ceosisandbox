@@ -5,8 +5,6 @@ import 'package:sandbox/examples/carl/Providers/providers.dart';
 import 'package:sandbox/examples/carl/screens/singlepost_screen2.dart';
 import '../Models/model.dart';
 
-final thirdNumberProvider = StateProvider((_) => 3);
-
 class PostListScreen2 extends ConsumerWidget {
   PostListScreen2(this.userId, {super.key});
   String userId;
