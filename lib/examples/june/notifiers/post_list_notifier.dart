@@ -1,19 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sandbox/examples/june/models/post_list_model.dart';
-
-class PostListFilterNotifier extends StateNotifier<String> {
-  PostListFilterNotifier() : super('');
-
-  void filter(String userID) {
-    state = userID.isNotEmpty ? '?userId=$userID' : '';
-  }
-}
+import 'package:sandbox/examples/june/providers.dart';
 
 class FilteredPostsNotifier
     extends StateNotifier<AsyncValue<List<PostListModel>?>> {
-  FilteredPostsNotifier() : super(const AsyncValue.data(<PostListModel>[]));
+  FilteredPostsNotifier(
+    this.ref, [
+    AsyncValue<List<PostListModel>>? posts,
+  ]) : super(posts ?? const AsyncValue.loading()) {
+    _getPosts();
+  }
 
-  void filter(AsyncValue<List<PostListModel>?> list) {
-    Future.delayed(const Duration(seconds: 0)).then((value) => state = list);
+  final Ref ref;
+
+  void _getPosts() {
+    final posts = ref.watch(postsFutureProvider);
+    state = posts;
+  }
+
+  void filter(String id) async {
+    String userID = id.isNotEmpty ? '?userId=$id' : '';
+    final posts =
+        await ref.read(postRepositoryProvider).getPosts(query: userID);
+    state = AsyncValue.data(posts);
   }
 }

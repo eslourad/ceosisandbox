@@ -11,7 +11,7 @@ class SearchFilter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     filter() =>
-        ref.read(postsFilterProvider.notifier).filter(filterController.text);
+        ref.watch(filteredPostsProvider.notifier).filter(filterController.text);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextField(
