@@ -60,27 +60,37 @@ class FilterWidget extends ConsumerWidget {
       Expanded(
         child: photos.when(
             data: ((data) {
-              return ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return Column(children: [
-                    InkWell(
-                      onTap: (() =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PhotoDetailsScreen(
-                                    photoModel: data[index],
-                                  )))),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(data[index].url),
-                        ),
-                        title: Text('${data[index].id}. ${data[index].title}'),
-                        subtitle: Text("AlbumId: ${data[index].albumId}"),
+              return data.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 100),
+                      child: Text(
+                        "Empty List!",
+                        style: TextStyle(fontSize: 25),
+                        textAlign: TextAlign.center,
                       ),
                     )
-                  ]);
-                },
-              );
+                  : ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        return Column(children: [
+                          InkWell(
+                            onTap: (() =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => PhotoDetailsScreen(
+                                          photoModel: data[index],
+                                        )))),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(data[index].url),
+                              ),
+                              title: Text(
+                                  '${data[index].id}. ${data[index].title}'),
+                              subtitle: Text("AlbumId: ${data[index].albumId}"),
+                            ),
+                          )
+                        ]);
+                      },
+                    );
             }),
             error: ((error, stackTrace) => Text(error.toString())),
             loading: (() => const Center(child: CircularProgressIndicator()))),
