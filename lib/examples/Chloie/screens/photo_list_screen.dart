@@ -23,7 +23,6 @@ class PhotoListScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               )),
           SizedBox(height: 10),
-          // PhotoWidget(),
           FilterWidget()
         ],
       ),
@@ -39,21 +38,23 @@ class FilterWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textfieldController = TextEditingController();
-    final String id;
     final photos = ref.watch(listPhotoProvider);
     return Expanded(
         child: Column(children: [
       Padding(
         padding: const EdgeInsets.only(left: 25, right: 25),
         child: TextField(
-          controller: textfieldController,
-          decoration: const InputDecoration(
-            labelText: 'Search',
-          ),
-          onSubmitted: (value) {
-            // ref.watch(listPhotoProvider.notifier).photofilter(id);
-          },
-        ),
+            controller: textfieldController,
+            decoration: const InputDecoration(
+              labelText: 'Search',
+            ),
+            onSubmitted: (value) {
+              if (textfieldController.text.isEmpty) {
+                ref.refresh(listPhotoProvider);
+              } else {
+                ref.read(listPhotoProvider.notifier).filterId(value);
+              }
+            }),
       ),
       const SizedBox(height: 10),
       Expanded(
@@ -83,7 +84,7 @@ class FilterWidget extends ConsumerWidget {
             }),
             error: ((error, stackTrace) => Text(error.toString())),
             loading: (() => const Center(child: CircularProgressIndicator()))),
-      )
+      ),
     ]));
   }
 }

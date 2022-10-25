@@ -6,7 +6,7 @@ import 'repositories/photo_repository.dart';
 final photoRepositoryProvider = StateProvider((_) => PhotoRepository());
 
 final photoDataProvider = FutureProvider<List<PhotoModel>>((ref) async {
-  return ref.read(photoRepositoryProvider).getAllPhotos("");
+  return ref.read(photoRepositoryProvider).getAllPhotos();
 });
 
 final singlePhotoDataProvider =
@@ -17,9 +17,9 @@ final singlePhotoDataProvider =
 );
 
 final filteredPhotoDataProvider =
-    FutureProvider.family.autoDispose<List<PhotoModel>, int>(
+    FutureProvider.family.autoDispose<List<PhotoModel>, String>(
   (ref, id) async {
-    return ref.read(photoRepositoryProvider).getAllPhotos(id.toString());
+    return ref.read(photoRepositoryProvider).getFilterPhoto(id.toString());
   },
 );
 

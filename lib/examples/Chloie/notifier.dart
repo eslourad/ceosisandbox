@@ -3,31 +3,22 @@ import 'package:sandbox/examples/Chloie/models/photoModel.dart';
 import 'package:sandbox/examples/Chloie/repositories/photo_repository.dart';
 
 class PhotoListNotifier extends StateNotifier<AsyncValue<List<PhotoModel>>> {
-  final Ref ref;
   PhotoListNotifier(
     this.ref, [
     AsyncValue<List<PhotoModel>>? photo,
   ]) : super(photo ?? const AsyncValue.loading()) {
-    void getPhotos() async {
-      final photo = await PhotoRepository().getAllPhotos("");
-      state = AsyncValue.data(photo);
-    }
-
-    void filterId(String id) async {
-      String albumId = id == '' ? id : '?albumId=$id';
-
-      final photo = await PhotoRepository().getAllPhotos(albumId);
-      state = AsyncValue.data(photo);
-    }
+    getPhotos();
   }
-}
-
-class PhotosFilterNotifier extends StateNotifier<AsyncValue<List<PhotoModel>>> {
-  PhotosFilterNotifier(this.ref) : super(const AsyncValue.data(<PhotoModel>[]));
   final Ref ref;
-  void photofilter(String id) async {
+  Future<void> getPhotos() async {
+    final photo = await PhotoRepository().getFilterPhoto('');
+    state = AsyncValue.data(photo);
+  }
+
+  Future<void> filterId(String id) async {
     String albumId = id == '' ? id : '?albumId=$id';
-    final photo = await PhotoRepository().getAllPhotos(albumId);
+
+    final photo = await PhotoRepository().getFilterPhoto(albumId);
     state = AsyncValue.data(photo);
   }
 }
