@@ -12,8 +12,7 @@ class PostListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String query = ref.watch(postsFilterProvider);
-    final data = ref.watch(postsFutureProvider(query));
+    final data = ref.watch(postsFutureProvider);
     AsyncValue<List<PostListModel>?> filteredData =
         ref.watch(filteredPostsProvider);
     ref.read(filteredPostsProvider.notifier).filter(data);
