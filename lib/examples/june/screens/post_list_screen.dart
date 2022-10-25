@@ -12,16 +12,14 @@ class PostListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(postsFutureProvider);
-    AsyncValue<List<PostListModel>?> filteredData =
+    AsyncValue<List<PostListModel>?> postsData =
         ref.watch(filteredPostsProvider);
-    ref.read(filteredPostsProvider.notifier).filter(data);
     return Scaffold(
       appBar: AppBar(
         title: const Text(Label.postListTitle),
         centerTitle: true,
       ),
-      body: filteredData.when(
+      body: postsData.when(
         data: (data) {
           List<PostListModel> postList = data!.map((e) => e).toList();
           return Column(

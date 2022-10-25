@@ -8,11 +8,9 @@ import 'package:sandbox/examples/june/repositories/post_repository.dart';
 final postRepositoryProvider =
     Provider<PostRepository>((ref) => PostRepository());
 //Future Provider for all posts
-final postsFutureProvider = FutureProvider.autoDispose<List<PostListModel>?>(
+final postsFutureProvider = FutureProvider<List<PostListModel>?>(
   (ref) async {
-    return ref
-        .watch(postRepositoryProvider)
-        .getPosts(query: ref.watch(postsFilterProvider));
+    return ref.watch(postRepositoryProvider).getPosts();
   },
 );
 // Future Provider for single post
@@ -28,17 +26,10 @@ final postStateProvider = StateProvider<PostModel>(
     return PostModel();
   },
 );
-// State Notifier Provider for post list filter
-final postsFilterProvider =
-    StateNotifierProvider.autoDispose<PostListFilterNotifier, String>(
-  (ref) {
-    return PostListFilterNotifier();
-  },
-);
 // State Notifier Provider for filtered post list
 final filteredPostsProvider = StateNotifierProvider.autoDispose<
     FilteredPostsNotifier, AsyncValue<List<PostListModel>?>>(
   (ref) {
-    return FilteredPostsNotifier();
+    return FilteredPostsNotifier(ref);
   },
 );
