@@ -12,14 +12,14 @@ class SearchPostScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("TEST 3 I am being rebuild");
-    String userId2 = ref.watch(userIdPostNotifierProvider);
+
     final watchedsearchpostprovider =
-        ref.watch(SearchpostFutureProvider(userId2));
+        ref.watch(SearchpostFutureProvider(userId)); //the list to be passed
 
-    AsyncValue<List<Post>> watchuserIdlistpost =
-        ref.watch(userIdListPostNotifierProvider);
+    AsyncValue<List<Post>> watchuserIdlistpost = ref.watch(
+        userIdListPostNotifierProvider(userId)); //the latest list searched
 
-    ref.read(userIdListPostNotifierProvider.notifier).fetchListwithUser(
+    ref.read(userIdListPostNotifierProvider(userId).notifier).fetchListwithUser(
         watchedsearchpostprovider); //READ THE SEARCHPOST WITH USERID  TO FETCH THE LIST
 
     return Scaffold(

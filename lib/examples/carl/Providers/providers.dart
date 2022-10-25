@@ -16,30 +16,17 @@ final SinglepostFutureProvider =
   return ref.watch(postProvider).fetchSinglePosts(id);
 });
 
-///searchpostlist from statenotififer
+///searchpostlist from searc box
 final SearchpostFutureProvider =
     FutureProvider.autoDispose.family<List<Post>, String>((ref, userId) async {
   return ref.watch(postProvider).searchPosts(userId);
 });
 
-///searchpostlist with statenotifier
-class UserIdPostNotifier extends StateNotifier<String> {
-  UserIdPostNotifier() : super('');
-
-  showallwithUserID(String userId) {
-    state = userId;
-  }
-}
-
-final userIdPostNotifierProvider =
-    StateNotifierProvider.autoDispose<UserIdPostNotifier, String>((ref) {
-  return UserIdPostNotifier();
-});
-
 //LISTFETCHER
-
 class ListofUserIdPostNotifier extends StateNotifier<AsyncValue<List<Post>>> {
-  ListofUserIdPostNotifier() : super(const AsyncValue.data(<Post>[]));
+  ListofUserIdPostNotifier(this.userId)
+      : super(const AsyncValue.data(<Post>[]));
+  String userId;
 
   fetchListwithUser(AsyncValue<List<Post>> ListofUserId) {
     Future.delayed(const Duration(seconds: 0)).then((value) {
@@ -48,7 +35,8 @@ class ListofUserIdPostNotifier extends StateNotifier<AsyncValue<List<Post>>> {
   }
 }
 
-final userIdListPostNotifierProvider = StateNotifierProvider.autoDispose<
-    ListofUserIdPostNotifier, AsyncValue<List<Post>>>((ref) {
-  return ListofUserIdPostNotifier();
+final userIdListPostNotifierProvider = StateNotifierProvider.autoDispose
+    .family<ListofUserIdPostNotifier, AsyncValue<List<Post>>, String>(
+        (ref, userId) {
+  return ListofUserIdPostNotifier(userId);
 });

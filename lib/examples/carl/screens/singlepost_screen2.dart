@@ -12,8 +12,7 @@ class SinglePostScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     print("TEST 3 I am being rebuild");
     print(id);
-    // final watchedsinglepostprovider =
-    //     ref.watch(singlePostRepositoryProvider2(id));
+
     final watchedsinglepostprovider = ref.watch(SinglepostFutureProvider(id));
     print(watchedsinglepostprovider.toString());
     return Scaffold(

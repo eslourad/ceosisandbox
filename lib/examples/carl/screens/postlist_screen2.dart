@@ -9,14 +9,14 @@ import 'package:sandbox/examples/carl/screens/singlepost_screen2.dart';
 final thirdNumberProvider = StateProvider((_) => 3);
 
 class PostListScreen2 extends ConsumerWidget {
-  const PostListScreen2({super.key});
-
+  PostListScreen2({super.key});
+  String userId = '';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("TEST 3 I am being rebuild");
+    // print("TEST 3 I am being rebuild");
 
     final watchedpostprovider = ref.watch(postFutureProvider);
-    final watchuserIdpostshow = ref.watch(userIdPostNotifierProvider);
+    // final watchuserIdpostshow = ref.watch(userIdPostNotifierProvider);
     // AsyncValue<List<Post>> watchuserIdlistpost =
     //     ref.watch(userIdListPostNotifierProvider);
     return Scaffold(
@@ -34,9 +34,7 @@ class PostListScreen2 extends ConsumerWidget {
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                     ],
                     onSubmitted: (value) {
-                      ref
-                          .read(userIdPostNotifierProvider.notifier)
-                          .showallwithUserID(value);
+                      userId = value;
                       // ref
                       //     .read(userIdListPostNotifierProvider.notifier)
                       //     .fetchListwithUser(watchuserIdlistpost);
@@ -46,8 +44,7 @@ class PostListScreen2 extends ConsumerWidget {
                       // print(watchuserIdpostshow);
 
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            SearchPostScreen(watchuserIdpostshow),
+                        builder: (context) => SearchPostScreen(userId),
                       ));
                     },
                     cursorColor: Colors.grey,
