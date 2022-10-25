@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sandbox/examples/carl/Models/model.dart';
 import 'package:sandbox/examples/carl/Providers/providers.dart';
-import 'package:sandbox/examples/carl/screens/search_screen2.dart';
 import 'package:sandbox/examples/carl/screens/singlepost_screen2.dart';
+import '../Models/model.dart';
 
 final thirdNumberProvider = StateProvider((_) => 3);
 
 class PostListScreen2 extends ConsumerWidget {
-  PostListScreen2({super.key});
-  String userId = '';
+  PostListScreen2(this.userId, {super.key});
+  String userId;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("TEST 3 I am being rebuild");
 
-    final watchedpostprovider = ref.watch(postFutureProvider);
+    final watchedsearchpostprovider =
+        ref.watch(SearchpostFutureProvider(userId)); //the list to be passed
+
+    AsyncValue<List<Post>> watchuserIdlistpost = ref.watch(
+        userIdListPostNotifierProvider(userId)); //the latest list searched
+
+    ref.read(userIdListPostNotifierProvider(userId).notifier).fetchListwithUser(
+        watchedsearchpostprovider); //READ THE SEARCHEDPOST WITH USERID  TO FETCH THE LIST
 
     return Scaffold(
         appBar: AppBar(
           title: const Text('simple riverpod fetch api'),
         ),
-        body: watchedpostprovider.when(
-          data: ((watchedpostprovider) {
-            List<Post> post = watchedpostprovider.map((e) => e).toList();
+        body: watchuserIdlistpost.when(
+          data: ((watchuserIdlistpost) {
+            List<Post> post = watchuserIdlistpost.map((e) => e).toList();
             return Column(
               children: [
                 TextField(
@@ -35,7 +42,7 @@ class PostListScreen2 extends ConsumerWidget {
                       userId = value;
 
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchPostScreen(userId),
+                        builder: (context) => PostListScreen2(userId),
                       ));
                     },
                     cursorColor: Colors.grey,
@@ -53,23 +60,25 @@ class PostListScreen2 extends ConsumerWidget {
                 Expanded(
                   child: ListView.builder(
                       itemCount: post.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          color: const Color.fromARGB(255, 235, 233, 135),
-                          elevation: 4,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: ListTile(
-                            onTap: () {
-                              var id = post[index].id.toString();
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SinglePostScreen(id),
-                              ));
-                            },
-                            title: Text(
-                                'ID:${post[index].id.toString()} ${post[index].title}'),
-                            subtitle: Text(post[index].body),
-                            trailing:
-                                Text('userID:${post[index].userId.toString()}'),
+                      itemBuilder: (_, index) {
+                        return InkWell(
+                          onTap: () {
+                            var id = post[index].id.toString();
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SinglePostScreen(id),
+                            ));
+                          },
+                          child: Card(
+                            color: const Color.fromARGB(255, 235, 233, 135),
+                            elevation: 4,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            child: ListTile(
+                              title: Text(
+                                  'ID:${post[index].id.toString()} ${post[index].title}'),
+                              subtitle: Text(post[index].body),
+                              trailing: Text(
+                                  'userID:${post[index].userId.toString()}'),
+                            ),
                           ),
                         );
                       }),
