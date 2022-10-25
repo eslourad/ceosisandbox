@@ -32,14 +32,13 @@ class Consumer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var futureProvider = ref
-        .watch(postsFutureProvider(ref.watch(filterProvider.notifier).state));
+    var dataProvider = ref.watch(sortedListPostProvider);
 
-    print(ref.watch(filterProvider.notifier).state);
+    print('${ref.watch(filterProvider.notifier).state} current state');
 
     final filterController = TextEditingController();
     return SizedBox(
-      child: futureProvider.when(
+      child: dataProvider.when(
         data: ((data) {
           return Column(
             children: [
@@ -54,11 +53,16 @@ class Consumer extends ConsumerWidget {
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                           onPressed: () {
-                            ref.read(filterProvider.notifier).state =
+                            print(
+                                '${ref.watch(filterProvider.notifier).state} state');
+                            var url = ref.read(filterProvider.notifier).state =
                                 filterController.text == ''
                                     ? 'posts'
                                     : 'posts?userId=${filterController.text}';
 
+                            ref
+                                .watch(sortedListPostProvider.notifier)
+                                .getPosts();
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
