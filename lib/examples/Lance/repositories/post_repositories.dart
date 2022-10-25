@@ -7,16 +7,11 @@ import '../model/single_post_model.dart';
 
 class PostRepository implements PostRepositoryInterface {
   @override
-  Future<List<PostLance>> getPosts(String url) async {
-    var client = http.Client();
-    var uri = Uri.parse(ApiConfigurationLance().baseUrl + url);
-    var response = await client.get(uri);
+  Future<List<PostLance>> getPostLance(String url1) async {
+    Uri url = Uri.parse(ApiConfigurationLance().baseUrl + url1);
 
-    print(response.body);
-    if (response.statusCode == 200) {
-      var json = response.body;
-      return postFromJson(json);
-    }
+    print(url);
+    var response = await http.get(url);
     return postFromJson(response.body);
   }
 

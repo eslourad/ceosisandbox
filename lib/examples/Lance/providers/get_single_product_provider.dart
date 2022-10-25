@@ -16,7 +16,8 @@ final singlePostFutureProvider =
 
 final postsFutureProvider = // Getting the data of the api from postRepositoryProvider
     FutureProvider.family<List<PostLance>, String>((ref, url) {
-  return PostRepository().getPosts(ref.watch(filterProvider.notifier).state);
+  return PostRepository()
+      .getPostLance(ref.watch(filterProvider.notifier).state);
 });
 final getSinglePostProvider = StateProvider<PostLance>((ref) {
   return PostLance();
