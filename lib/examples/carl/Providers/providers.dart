@@ -5,18 +5,13 @@ import '../Repository/post_repository.dart';
 
 final postProvider = Provider<PostRepository>((ref) => PostRepository());
 
-///postlist
-final postFutureProvider = FutureProvider.autoDispose<List<Post>>((ref) async {
-  return ref.watch(postProvider).fetchPosts();
-});
-
 ///singlepostlist
 final SinglepostFutureProvider =
     FutureProvider.autoDispose.family<Post, String>((ref, id) async {
   return ref.watch(postProvider).fetchSinglePosts(id);
 });
 
-///searchpostlist from searc box
+///searchpostlist from search box and shows all post as default
 final SearchpostFutureProvider =
     FutureProvider.autoDispose.family<List<Post>, String>((ref, userId) async {
   return ref.watch(postProvider).searchPosts(userId);
